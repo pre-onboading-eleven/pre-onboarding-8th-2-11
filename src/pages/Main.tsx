@@ -1,4 +1,7 @@
 import Book from '../components/Book';
+import Loading from '../components/Loading';
+import { useState, useEffect } from 'react';
+import { issueStore } from '../hooks/store';
 import styled from 'styled-components';
 
 export interface IIssue {
@@ -16,41 +19,56 @@ export interface IIssueProcess {
   color: string;
 }
 
-export const issueProcess: IIssueProcess[] = [
-  {
-    id: 0,
-    title: '할 일',
-    color: '#ebebeb',
-  },
-  {
-    id: 1,
-    title: '진행 중',
-    color: '#ffd2db',
-  },
-  {
-    id: 2,
-    title: '완료',
-    color: '#bad6f9',
-  },
-];
+// export const issueProcess: IIssueProcess[] = [
+//   {
+//     id: 0,
+//     title: '할 일',
+//     color: '#ebebeb',
+//   },
+//   {
+//     id: 1,
+//     title: '진행 중',
+//     color: '#ffd2db',
+//   },
+//   {
+//     id: 2,
+//     title: '완료',
+//     color: '#bad6f9',
+//   },
+// ];
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
+  const { IssueData } = issueStore();
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 0); //FIXME 시간 수정
+  }, []);
   return (
-    <div>
-      <Wrapper>
-        {issueProcess &&
-          issueProcess.map((item) => {
-            return (
-              <ContainerWrapper
-                key={item.id}
-                color={issueProcess[item.id].color}
-              >
-                <Book item={item} />
-              </ContainerWrapper>
-            );
-          })}
-      </Wrapper>
-    </div>
+    <>
+      {loading ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <div>
+          <Wrapper>
+            {IssueData &&
+              Object.entries(IssueData).map(([key, value]) => {
+                return (
+                  <ContainerWrapper
+                    key={key}
+                    // color={issueProcess[item.id].color}
+                  >
+                    <Book item={IssueData[key]} />
+                  </ContainerWrapper>
+                );
+              })}
+          </Wrapper>
+        </div>
+      )}
+    </>
   );
 };
 

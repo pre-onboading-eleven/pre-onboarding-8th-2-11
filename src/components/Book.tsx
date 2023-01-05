@@ -1,4 +1,3 @@
-import { issueStore } from '../hooks/store';
 import { IIssueProcess, IIssue } from '../pages/Main';
 import Issue from './Issue';
 import styled from 'styled-components';
@@ -8,12 +7,6 @@ interface IProps {
 }
 
 const Book = ({ item }: IProps) => {
-  const { IssueData } = issueStore();
-
-  const selectIssue = IssueData.filter(
-    (issue: IIssue) => item.id === issue.status
-  );
-
   return (
     <>
       <div>
@@ -21,11 +14,11 @@ const Book = ({ item }: IProps) => {
           <CardTitle>{item.title}</CardTitle>
         </div>
         <div>
-          {selectIssue
-            ? selectIssue.map((mark: IIssue) => (
-                <CardItem>
+          {item
+            ? item.map((mark: IIssue) => (
+                <CardItem key={mark.id}>
                   <ItemWrapper>
-                    <Issue key={mark.id} mark={mark} />
+                    <Issue mark={mark} />
                   </ItemWrapper>
                 </CardItem>
               ))
