@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Detail from '../pages/Detail';
 import { IIssue } from '../pages/Main';
 
 interface IProps {
@@ -10,14 +11,14 @@ const Mark = ({ mark }: IProps) => {
   const navigate = useNavigate();
 
   const [onHold, setOnHold] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const dragStartHandler = (
     e: React.DragEventHandler<HTMLDivElement> | any
   ) => {
-    // e.dataTransfer.setData('cardInfo', JSON.stringify({ id, status }));
     e.target.className += ' border';
-    let targetCardId = e.target.id;
-    console.log('🚀 ~ file: Issue.tsx:20 ~ Mark ~ targetCardId', targetCardId);
+    // let targetCardId = e.target.id;
+    // console.log('🚀 ~ file: Issue.tsx:20 ~ Mark ~ targetCardId', targetCardId);
     setTimeout(() => {
       setOnHold(true);
     }, 0);
@@ -29,7 +30,7 @@ const Mark = ({ mark }: IProps) => {
 
   return (
     <div
-      onClick={() => navigate(`/issue/${mark.id}`, { state: mark })}
+      onClick={() => setOpenModal(!openModal)}
       className="group mb-1 box-border cursor-pointer rounded border-2 border-cyan-400 bg-white p-1 hover:bg-gray-50"
     >
       <div
@@ -46,6 +47,7 @@ const Mark = ({ mark }: IProps) => {
         <p>{mark.deadDate}</p>
         <p>담당자 : {mark.who}</p>
       </div>
+      {openModal && <Detail mark={mark} setOpenModal={setOpenModal} />}
     </div>
   );
 };
