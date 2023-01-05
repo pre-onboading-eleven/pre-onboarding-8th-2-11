@@ -1,28 +1,18 @@
-import { IIssue } from '../pages/Main';
 import Issue from './Issue';
 import styled from 'styled-components';
 
 const Book = ({ item }: any) => {
   console.log('🚀 ~ file: Book.tsx:6 ~ Book ~ item', item);
   return (
-    <>
-      <div>
-        <div>
-          <CardTitle>{item.title}</CardTitle>
-        </div>
-        <div>
-          {item
-            ? item.map((mark: IIssue) => (
-                <CardItem key={mark.id}>
-                  <ItemWrapper>
-                    <Issue mark={mark} />
-                  </ItemWrapper>
-                </CardItem>
-              ))
-            : null}
-        </div>
-      </div>
-    </>
+    <div>
+      {item ? (
+        <CardItem key={item.id}>
+          <ItemWrapper>
+            <Issue mark={item} />
+          </ItemWrapper>
+        </CardItem>
+      ) : null}
+    </div>
   );
 };
 
