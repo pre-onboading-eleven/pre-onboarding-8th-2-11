@@ -191,6 +191,7 @@ TypeScript, React, Styled-Components, react-router, zustand
 | !HOTFIX          | 급하게 치명적인 버그를 고쳐야 하는 경우                      |
 
 - branch 전략
+
 | Branch Name | Description                                                        |
 | ----------- | ----------------------------------------------------------------- |
 |    main     | 배포 및 최종본, 출시 버전 브랜치                                    |
