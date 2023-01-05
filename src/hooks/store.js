@@ -12,24 +12,72 @@ const SampleData = [
   },
 ];
 
+const initialData = {
+  할일: [
+    {
+      id: 0, // 고유번호
+      title: 'Title', // 제목
+      content: 'ddd', // 내용
+      deadDate: '2022-01-06', //마감일
+      status: 'todo', // 상태
+      who: '조민우',
+      order: 0,
+    },
+  ],
+  진행: [
+    {
+      id: 1, // 고유번호
+      title: 'Title2', // 제목
+      content: 'ddd2', // 내용
+      deadDate: '2022-01-06', //마감일
+      status: 'doing', // 상태
+      who: '장태경',
+      order: 0,
+    },
+  ],
+  완료: [
+    {
+      id: 2, // 고유번호
+      title: 'Title', // 제목
+      content: 'ddd', // 내용
+      deadDate: '2022-01-06', //마감일
+      status: 'done', // 상태
+      who: '박민경',
+      order: 0,
+    },
+  ],
+};
+
 const issueStore = create(
   devtools(
     persist(
       (set, get) => ({
-        IssueData: SampleData, //state
-        setIssueData: (newIssue) =>
-          set((state) => ({ IssueData: [...state.IssueData, newIssue] })),
-        delIssue: (delId) =>
+        IssueData: initialData, //state
+        setIssueData: (newIssue) => {
           set((state) => ({
-            IssueData: state.IssueData.filter((item) => item.id !== delId),
-          })),
-        updateIssueData: (delId, newIssue) =>
+            IssueData: {
+              ...state.IssueData,
+              할일: [...state.IssueData.할일, newIssue],
+            },
+          }));
+        },
+        delIssue: (key, delId) =>
           set((state) => ({
-            IssueData: [
-              ...get().IssueData.filter((item) => item.id !== delId),
-              newIssue,
-            ],
+            IssueData: {
+              ...state.IssueData,
+              [key]: state.IssueData[key].filter((item) => item.id !== delId),
+            },
           })),
+        updateIssueData: (key, delId, newIssue) => {
+          const data = structuredClone(get().IssueData)[key];
+          prevData[data.findIndex((v) => v.delId)] = newIssue;
+          set((state) => ({
+            IssueData: {
+              ...state.IssueData,
+              [key]: data,
+            },
+          }));
+        },
       }),
       {
         name: 'issue-storage', // name of item in the storage (must be unique)
