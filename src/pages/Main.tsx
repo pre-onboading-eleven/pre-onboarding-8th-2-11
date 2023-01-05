@@ -1,7 +1,8 @@
 // import Book from '../components/Book';
 
 import Book from '../components/Book';
-
+import Loading from '../components/Loading';
+import { useState, useEffect } from 'react';
 import { issueStore } from '../hooks/store';
 
 export interface IIssue {
@@ -35,10 +36,11 @@ export const issueProcess: IIssueProcess[] = [
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
+  const { IssueData } = issueStore();
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 0); //FIXME 시간 수정
   }, []);
   return (
     <>
@@ -49,12 +51,22 @@ const Home = () => {
       ) : (
         <div className="flex h-screen items-start bg-sub p-4">
           <div className="flex justify-around w-full">
-            {issueProcess &&
+            {/* {issueProcess &&
               issueProcess.map((item) => {
-                // console.log('selectIssue', item.id, selectIssue);
                 return (
                   <div key={item.id}>
                     <Book item={item} />
+                  </div>
+                );
+              })} */}
+
+            {IssueData &&
+              Object.entries(IssueData).map(([key, value], i) => {
+                console.log(IssueData[key]);
+                return (
+                  <div key={key}>
+                    <h1>{key}</h1>
+                    <Book item={IssueData[key]} />
                   </div>
                 );
               })}

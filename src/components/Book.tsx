@@ -7,11 +7,9 @@ interface IProps {
 }
 
 const Book = ({ item }: IProps) => {
-  const { IssueData } = issueStore();
-
-  const selectIssue = IssueData.filter(
-    (issue: IIssue) => item.id === issue.status
-  );
+  // const selectIssue = IssueData.filter(
+  //   (issue: IIssue) => item.id === issue.status
+  // );
 
   return (
     <>
@@ -20,10 +18,8 @@ const Book = ({ item }: IProps) => {
           <div>{item.title}</div>
         </div>
         <div className="">
-          {selectIssue ? (
-            selectIssue.map((mark: IIssue) => (
-              <Issue key={mark.id} mark={mark} />
-            ))
+          {item ? (
+            item.map((mark: IIssue) => <Issue key={mark.id} mark={mark} />)
           ) : (
             <hr className="border-3 mt-0 mb-3 border-white" />
           )}

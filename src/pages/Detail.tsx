@@ -14,8 +14,9 @@ const Detail = () => {
   const [mark, setMark] = useState(location.state);
   const [isEditing, toggleEditing] = useReducer((pre) => !pre, false);
 
-  const onSubmit = (newIssue: IIssue) => {
-    updateIssueData(newIssue.id, newIssue);
+  const onSubmit = (newIssue: IIssue, prevStatus) => {
+    console.log('🚀 ~ file: Detail.tsx:18 ~ onSubmit ~ newIssue', newIssue);
+    updateIssueData(newIssue, prevStatus);
     setMark(newIssue);
     toggleEditing();
   };
@@ -37,7 +38,7 @@ const Detail = () => {
           <p>제목 : {mark.title}</p>
           <p>내용 : {mark.content}</p>
           <p>마감일 : {mark.deadDate}</p>
-          <p>상태 : {TYPE[mark.status]}</p>
+          <p>상태 : {mark.status}</p>
           <p>담당자 : {mark.who}</p>
         </>
       )}
@@ -51,7 +52,7 @@ const Detail = () => {
         </button>
         <button
           onClick={() => {
-            delIssue(mark.id);
+            delIssue(mark.status, mark.id);
             navigate('/');
           }}
           className="mb-1 rounded-full bg-rose-400 p-2 hover:bg-rose-500"

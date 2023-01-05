@@ -22,7 +22,6 @@ interface IProps {
 }
 
 const AddForm = ({ onSubmit, edit }: IProps) => {
-  console.log('edit', edit);
   const { IssueData } = issueStore();
 
   const idRef = useRef<HTMLInputElement>(null);
@@ -32,7 +31,7 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
 
   const [whoKeyword, setWhoKeyword] = useState<string[]>([]);
   const [newWho, setNewWho] = useState<string>();
-  const [newStatus, setNewStatus] = useState<number>(0);
+  const [newStatus, setNewStatus] = useState<string>('todo');
 
   const onChangeData = (e: React.FormEvent<HTMLInputElement>) => {
     const keyword = e.currentTarget.value;
@@ -40,11 +39,9 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
       const temp = whoList.filter((who) => who.toLowerCase().includes(keyword));
       setWhoKeyword(temp);
     }
-    // setWhoKeyword(e.currentTarget.value);
   };
 
-  const addNewStatus = (status: number) => {
-    console.log('status', status);
+  const addNewStatus = (status: string) => {
     setNewStatus(status);
   };
 
@@ -54,28 +51,29 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
       newIssue = {
         id: edit
           ? edit.id
-          : IssueData.length > 0
-          ? IssueData[IssueData.length - 1].id + 1
+          : IssueData['todo'].length > 0
+          ? IssueData['todo'][IssueData['todo'].length - 1].id + 1
           : 0,
         title: titleRef?.current?.value,
         content: contentRef?.current?.value,
         deadDate: dateRef?.current?.value,
         who: newWho ?? edit.who,
-        status: newStatus ?? edit.status,
+        status: edit ? newStatus : 'todo',
+        order: 0,
       };
     }
-    onSubmit(newIssue);
+    edit ? onSubmit(newIssue, edit.status) : onSubmit(newIssue);
   };
 
   useEffect(() => {
     if (edit) {
-      console.log('edit.who :>> ', edit.who);
+      console.log('edit:>> ', edit.status);
       setNewWho(edit.who);
       setNewStatus(edit.status);
     }
   }, []);
 
-  const BUTTONDISABLED = newWho && newStatus >= 0;
+  const BUTTONDISABLED = newWho && newStatus;
   return (
     <div className="flex flex-col m-10">
       {edit ? (
@@ -139,21 +137,27 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
             );
           })}
       </select>
-      <select
-        onChange={(e) => {
-          addNewStatus(Number(e.target.value));
-        }}
-        defaultValue={edit ? edit.status : null}
-      >
-        <option value="">상태를 선택하세요</option>
-        {issueProcess.map((item) => {
-          return (
-            <option key={item.id} value={item.id}>
-              {item.title}
-            </option>
-          );
-        })}
-      </select>
+
+      {edit ? (
+        <select
+          onChange={(e) => {
+            addNewStatus(e.target.value);
+          }}
+          defaultValue={edit ? edit.status : null}
+        >
+          <option value="">상태를 선택하세요</option>
+          {['todo', 'doing', 'done'].map((item, i) => {
+            return (
+              <option key={i} value={item}>
+                {item}
+              </option>
+            );
+          })}
+        </select>
+      ) : (
+        ''
+      )}
+
       <button
         type="submit"
         onClick={onSave}
