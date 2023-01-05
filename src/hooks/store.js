@@ -13,7 +13,7 @@ const SampleData = [
 ];
 
 const initialData = {
-  할일: [
+  todo: [
     {
       id: 0, // 고유번호
       title: 'Title', // 제목
@@ -24,7 +24,7 @@ const initialData = {
       order: 0,
     },
   ],
-  진행: [
+  doing: [
     {
       id: 1, // 고유번호
       title: 'Title2', // 제목
@@ -35,7 +35,7 @@ const initialData = {
       order: 0,
     },
   ],
-  완료: [
+  done: [
     {
       id: 2, // 고유번호
       title: 'Title', // 제목
@@ -57,24 +57,29 @@ const issueStore = create(
           set((state) => ({
             IssueData: {
               ...state.IssueData,
-              할일: [...state.IssueData.할일, newIssue],
+              todo: [...state.IssueData.todo, newIssue],
             },
           }));
         },
-        delIssue: (key, delId) =>
+        delIssue: (key, delId) => {
           set((state) => ({
             IssueData: {
               ...state.IssueData,
               [key]: state.IssueData[key].filter((item) => item.id !== delId),
             },
-          })),
-        updateIssueData: (key, delId, newIssue) => {
-          const data = structuredClone(get().IssueData)[key];
-          prevData[data.findIndex((v) => v.delId)] = newIssue;
+          }));
+        },
+        updateIssueData: (newIssue, prevStatus) => {
           set((state) => ({
             IssueData: {
               ...state.IssueData,
-              [key]: data,
+              [prevStatus]: state.IssueData[prevStatus].filter(
+                (item) => item.id !== newIssue.id
+              ),
+              [newIssue.status]: [
+                ...state.IssueData[newIssue.status],
+                newIssue,
+              ],
             },
           }));
         },
