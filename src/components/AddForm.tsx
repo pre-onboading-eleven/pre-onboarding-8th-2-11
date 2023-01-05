@@ -107,10 +107,10 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
             defaultValue={edit ? edit.status : null}
           >
             <option value="">상태를 선택하세요</option>
-            {issueProcess.map((item) => {
+            {['todo', 'doing', 'done'].map((item, i) => {
               return (
-                <option key={item.id} value={item.id}>
-                  {item.title}
+                <option key={i} value={item}>
+                  {item}
                 </option>
               );
             })}
@@ -159,37 +159,6 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
             ref={contentRef}
           ></ContentInput>
         </label>
-        <label htmlFor="deadDate">
-          마감일
-          <input
-            type="datetime-local"
-            ref={dateRef}
-            defaultValue={edit ? edit.deadDate : null}
-          />
-        </label>
-        <label htmlFor="deadDate">
-          담당자
-          <input
-            onChange={onChangeData}
-            defaultValue={edit ? edit.who : null}
-          />
-        </label>
-        <select
-          onChange={(e) => {
-            setNewWho(e.target.value);
-          }}
-          defaultValue={edit ? edit.who : null}
-        >
-          <option value="">담당자를 선택하세요</option>
-          {whoKeyword &&
-            whoKeyword.map((item, i) => {
-              return (
-                <option key={i} value={item}>
-                  {item}
-                </option>
-              );
-            })}
-        </select>
 
         {edit ? (
           <select
