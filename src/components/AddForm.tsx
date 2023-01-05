@@ -16,7 +16,7 @@ const whoList = [
 
 interface IProps {
   onSubmit: any;
-  edit?: IIssue;
+  edit?: IIssue | any; //FIXME type 수정
 }
 
 const AddForm = ({ onSubmit, edit }: IProps) => {
@@ -102,7 +102,7 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
           상태
           <select
             onChange={(e) => {
-              addNewStatus(Number(e.target.value));
+              addNewStatus(e.target.value);
             }}
             defaultValue={edit ? edit.status : null}
           >

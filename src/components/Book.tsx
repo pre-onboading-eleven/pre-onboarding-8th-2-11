@@ -1,12 +1,9 @@
-import { IIssueProcess, IIssue } from '../pages/Main';
+import { IIssue } from '../pages/Main';
 import Issue from './Issue';
 import styled from 'styled-components';
 
-interface IProps {
-  item: IIssueProcess;
-}
-
-const Book = ({ item }: IProps) => {
+const Book = ({ item }: any) => {
+  console.log('🚀 ~ file: Book.tsx:6 ~ Book ~ item', item);
   return (
     <>
       <div>
