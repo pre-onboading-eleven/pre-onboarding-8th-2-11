@@ -3,6 +3,7 @@ import Loading from '../components/Loading';
 import { useState, useEffect } from 'react';
 import { issueStore } from '../hooks/store';
 import styled from 'styled-components';
+import Dnd from '../components/Dnd';
 
 export interface IIssue {
   id?: number; // 고유번호
@@ -46,6 +47,7 @@ const Home = () => {
       setLoading(false);
     }, 0); //FIXME 시간 수정
   }, []);
+
   return (
     <>
       {loading ? (
@@ -53,21 +55,23 @@ const Home = () => {
           <Loading />
         </>
       ) : (
-        <div>
-          <Wrapper>
-            {IssueData &&
-              Object.entries(IssueData).map(([key, value]) => {
-                return (
-                  <ContainerWrapper
-                    key={key}
-                    // color={issueProcess[item.id].color}
-                  >
-                    <Book item={IssueData[key]} />
-                  </ContainerWrapper>
-                );
-              })}
-          </Wrapper>
-        </div>
+        <Wrapper>
+          {
+            IssueData && (
+              <Dnd data={IssueData} render={(v) => <Book item={v} />} />
+            )
+            // Object.entries(IssueData).map(([key, value]) => {
+            //   return (
+            //     <ContainerWrapper
+            //       key={key}
+            //       // color={issueProcess[item.id].color}
+            //     >
+            //       <Book item={IssueData[key]} />
+            //     </ContainerWrapper>
+            //   );
+            // })
+          }
+        </Wrapper>
       )}
     </>
   );
@@ -80,11 +84,14 @@ const Wrapper = styled.div`
   padding: 10px;
   display: flex;
   justify-content: space-between;
-`;
-
-const ContainerWrapper = styled.div`
-  width: 390px;
-  background-color: ${(props) => props.color};
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-  border-radius: 10px;
+  .container {
+    width: 390px;
+    background-color: ${(props) => props.color};
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+  }
+  .book {
+    list-style: none;
+    padding-left: 0;
+  }
 `;
