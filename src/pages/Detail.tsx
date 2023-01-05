@@ -70,7 +70,7 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
               <DeleteBtn
                 onClick={(e) => {
                   e.stopPropagation();
-                  delIssue(mark.id);
+                  delIssue(mark.status, mark.id);
                   navigate('/');
                 }}
               >
