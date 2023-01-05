@@ -5,12 +5,13 @@ import { issueStore } from '../hooks/store';
 import styled from 'styled-components';
 
 export interface IIssue {
-  id: number; // 고유번호
-  title: string; // 제목
-  content: string; // 내용
-  deadDate: number | string; //마감일
-  status: number; // 상태
-  who: string;
+  id?: number; // 고유번호
+  title?: string; // 제목
+  content?: string; // 내용
+  deadDate?: string; //마감일
+  status?: number; // 상태
+  who?: string;
+  order?: number;
 }
 
 export interface IIssueProcess {

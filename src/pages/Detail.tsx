@@ -20,10 +20,9 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
   // const [mark, setMark] = useState(location.state);
   const [isEditing, toggleEditing] = useReducer((pre) => !pre, false);
 
-  const onSubmit = (newIssue: IIssue, prevStatus) => {
-    console.log('🚀 ~ file: Detail.tsx:18 ~ onSubmit ~ newIssue', newIssue);
+  const onSubmit = (newIssue: IIssue, prevStatus: string) => {
     updateIssueData(newIssue, prevStatus);
-    setMark(newIssue);
+    // setMark(newIssue);
     toggleEditing();
   };
 
@@ -42,11 +41,7 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
       <div>Mark detail page</div>
       {isEditing ? (
         <ContainerWrapper>
-          <AddForm
-            edit={mark}
-            onSubmit={onSubmit}
-            // toggleEditing={toggleEditing}
-          />
+          <AddForm edit={mark} onSubmit={onSubmit} />
         </ContainerWrapper>
       ) : (
         <>
