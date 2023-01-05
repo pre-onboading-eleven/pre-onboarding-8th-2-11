@@ -38,7 +38,7 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
           X
         </CloseBtn>
       </ContainerHeader>
-      <div>Mark detail page</div>
+      {/* <div>Mark detail page</div> */}
       {isEditing ? (
         <ContainerWrapper>
           <AddForm
@@ -48,34 +48,42 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
           />
         </ContainerWrapper>
       ) : (
-        <>
-          <p>id : {mark.id}</p>
-          <p>제목 : {mark.title}</p>
-          <p>내용 : {mark.content}</p>
-          <p>마감일 : {mark.deadDate}</p>
-          <p>상태 : {TYPE[mark.status]}</p>
-          <p>담당자 : {mark.who}</p>
-        </>
+        <ContainerWrapper>
+          <DetailWrapper>
+            <DetailHeader>
+              <h1>
+                {mark.id} {mark.title}
+              </h1>
+            </DetailHeader>
+            <DetailBody>
+              <p>상태 : {TYPE[mark.status]}</p>
+              <p>마감일 : {mark.deadDate}</p>
+              <p>담당자 : {mark.who}</p>
+              <p>내용</p>
+              <ContentDiv>{mark.content}</ContentDiv>
+            </DetailBody>
+            <DetailFooter>
+              <SubmitBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleEditing();
+                }}
+              >
+                {isEditing ? '취소' : '수정'}
+              </SubmitBtn>
+              <DeleteBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                  delIssue(mark.id);
+                  navigate('/');
+                }}
+              >
+                삭제
+              </DeleteBtn>
+            </DetailFooter>
+          </DetailWrapper>
+        </ContainerWrapper>
       )}
-      <div>
-        <SubmitBtn
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleEditing();
-          }}
-        >
-          {isEditing ? '취소' : '수정'}
-        </SubmitBtn>
-        <DeleteBtn
-          onClick={(e) => {
-            e.stopPropagation();
-            delIssue(mark.id);
-            navigate('/');
-          }}
-        >
-          삭제
-        </DeleteBtn>
-      </div>
     </ModalWrapper>
   );
 };
@@ -97,9 +105,9 @@ const ModalWrapper = styled.div`
 `;
 
 const ContainerWrapper = styled.div`
-  width: 600px;
-  height: 540px;
-  /* background-color: white; */
+  width: 500px;
+  height: 450px;
+  background-color: white;
   border-radius: 10px;
 `;
 
@@ -113,13 +121,37 @@ const ContainerHeader = styled.div`
   align-items: center;
 `;
 
+const DetailWrapper = styled.div`
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+`;
+
+const DetailHeader = styled.div``;
+
+const DetailBody = styled.div``;
+
+const ContentDiv = styled.div`
+  height: 110px;
+  border: 1px solid gray;
+  border-radius: 5px;
+`;
+
+const DetailFooter = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+`;
+
 const CloseBtn = styled.button`
   width: 30px;
   height: 30px;
   font-size: 20px;
   border-radius: 50%;
   border: none;
-  /* background-color: transparent; */
   cursor: pointer;
 `;
 

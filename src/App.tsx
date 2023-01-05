@@ -21,7 +21,7 @@ function App() {
         <Nav />
         <Routes>
           <Route index path="/" element={<Home />} />
-          <Route path="/add" element={<AddIssueInput />} />
+          {/* <Route path="/add" element={<AddIssueInput />} /> */}
           <Route path="/issue/:id" element={<Detail />} />
         </Routes>
       </Router>
