@@ -1,8 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { issueStore } from '../hooks/store';
-
 import { issueProcess } from '../pages/Main';
-
 import { IIssue } from '../pages/Main';
 
 const whoList = [

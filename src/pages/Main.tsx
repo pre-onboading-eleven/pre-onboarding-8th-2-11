@@ -13,43 +13,59 @@ export interface IIssue {
 export interface IIssueProcess {
   id: number;
   title: string;
+  color: string;
 }
 
 export const issueProcess: IIssueProcess[] = [
   {
     id: 0,
     title: '할 일',
+    color: '#ebebeb',
   },
   {
     id: 1,
     title: '진행 중',
+    color: '#ffd2db',
   },
   {
     id: 2,
     title: '완료',
+    color: '#bad6f9',
   },
 ];
 
 const Home = () => {
   return (
-    <div className="flex h-screen items-start bg-sub p-4">
-      <div className="flex justify-around w-full">
+    <div>
+      <Wrapper>
         {issueProcess &&
           issueProcess.map((item) => {
-            // console.log('selectIssue', item.id, selectIssue);
             return (
-              <div key={item.id}>
+              <ContainerWrapper
+                key={item.id}
+                color={issueProcess[item.id].color}
+              >
                 <Book item={item} />
-              </div>
+              </ContainerWrapper>
             );
           })}
-      </div>
+      </Wrapper>
     </div>
   );
 };
 
 export default Home;
 
-const test = styled.div`
-  color: #222222;
+const Wrapper = styled.div`
+  width: 1200px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ContainerWrapper = styled.div`
+  width: 390px;
+  background-color: ${(props) => props.color};
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
 `;
