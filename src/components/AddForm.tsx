@@ -62,8 +62,13 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
         order: 0,
       };
     }
-    edit ? onSubmit(newIssue, edit.status) : onSubmit(newIssue);
-    setOpenModal(false);
+    
+    if (edit) {
+      onSubmit(newIssue, edit.status);
+    } else {
+      onSubmit(newIssue);
+      setOpenModal(false);
+    }
   };
 
   useEffect(() => {
