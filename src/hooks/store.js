@@ -18,7 +18,7 @@ const initialData = {
       id: 0, // 고유번호
       title: 'Title', // 제목
       content: 'ddd', // 내용
-      deadDate: '2022-01-06', //마감일
+      deadDate: '2023-01-04T20:28', //마감일
       status: 'todo', // 상태
       who: '조민우',
       order: 0,
@@ -29,7 +29,7 @@ const initialData = {
       id: 1, // 고유번호
       title: 'Title2', // 제목
       content: 'ddd2', // 내용
-      deadDate: '2022-01-06', //마감일
+      deadDate: '2023-01-04T20:28', //마감일
       status: 'doing', // 상태
       who: '장태경',
       order: 0,
@@ -40,7 +40,7 @@ const initialData = {
       id: 2, // 고유번호
       title: 'Title', // 제목
       content: 'ddd', // 내용
-      deadDate: '2022-01-06', //마감일
+      deadDate: '2023-01-04T20:28', //마감일
       status: 'done', // 상태
       who: '박민경',
       order: 0,

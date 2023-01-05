@@ -62,7 +62,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
         order: 0,
       };
     }
-    onSubmit(newIssue);
+    edit ? onSubmit(newIssue, edit.status) : onSubmit(newIssue);
     setOpenModal(false);
   };
 
@@ -87,24 +87,28 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
             ref={titleRef}
           />
         </InputWrapper>
-        <InputWrapper>
-          상태
-          <Select
-            onChange={(e) => {
-              addNewStatus(e.target.value);
-            }}
-            defaultValue={edit ? edit.status : null}
-          >
-            <option value="">상태를 선택하세요</option>
-            {['todo', 'doing', 'done'].map((item, i) => {
-              return (
-                <option key={i} value={item}>
-                  {item}
-                </option>
-              );
-            })}
-          </Select>
-        </InputWrapper>
+        {edit ? (
+          <InputWrapper>
+            상태
+            <Select
+              onChange={(e) => {
+                addNewStatus(e.target.value);
+              }}
+              defaultValue={edit ? edit.status : null}
+            >
+              <option value="">상태를 선택하세요</option>
+              {['todo', 'doing', 'done'].map((item, i) => {
+                return (
+                  <option key={i} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </Select>
+          </InputWrapper>
+        ) : (
+          ''
+        )}
         <InputWrapper>
           <label htmlFor="deadDate">마감일</label>
           <InputModal
