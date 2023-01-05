@@ -46,6 +46,8 @@ const Home = () => {
       setLoading(false);
     }, 0); //FIXME 시간 수정
   }, []);
+  console.log(IssueData);
+
   return (
     <>
       {loading ? (
