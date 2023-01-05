@@ -1,6 +1,13 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import AddIssueInput from '../pages/AddIssueInput';
 
 const Nav = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const showModal = () => {
+    setOpenModal(true);
+  };
   return (
     <nav className=" bg-main">
       <div className="mx-auto max-w-6xl px-4">
@@ -13,12 +20,17 @@ const Nav = () => {
           </Link>
           <div className="flex items-center space-x-1 text-sm">
             <Link to={'/'}>Home</Link>
-            <Link to={'/add'}>addIssue</Link>
+            <AddSpan onClick={showModal}>addIssue</AddSpan>
+            {openModal && <AddIssueInput setOpenModal={setOpenModal} />}
           </div>
         </div>
       </div>
     </nav>
   );
 };
+
+const AddSpan = styled.span`
+  cursor: pointer;
+`;
 
 export default Nav;
