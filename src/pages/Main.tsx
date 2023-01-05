@@ -1,8 +1,5 @@
-// import Book from '../components/Book';
-
 import Book from '../components/Book';
-
-import { issueStore } from '../hooks/store';
+import styled from 'styled-components';
 
 export interface IIssue {
   id: number; // 고유번호
@@ -52,3 +49,7 @@ const Home = () => {
 };
 
 export default Home;
+
+const test = styled.div`
+  color: #222222;
+`;
