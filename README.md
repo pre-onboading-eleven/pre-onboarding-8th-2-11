@@ -124,29 +124,31 @@ yarn dev
 
 ### 1. 각 이슈의 CRUD 구현
 #### ✅ 추가
-![추가](https://user-images.githubusercontent.com/107922059/210996662-13b08940-8630-470e-bec2-f02b9267917d.gif)
+![추가](https://user-images.githubusercontent.com/101863209/211030397-6ac46bbd-21fb-43e5-859b-a8c5248776d2.gif)
 
 #### ✅ 삭제
-![삭제](https://user-images.githubusercontent.com/107922059/210996670-14dd2cd2-9066-4fa7-8a4d-d5b68c0f06aa.gif)
+![삭제](https://user-images.githubusercontent.com/101863209/211030468-c9d14c33-b738-4813-9cbe-b208613a0872.gif)
 
 #### ✅ 수정
-![수정](https://user-images.githubusercontent.com/107922059/210996649-8dee2547-a737-4a84-9d1d-f9307aabdb2f.gif)
+![수정](https://user-images.githubusercontent.com/101863209/211030507-0e2a48e3-be10-4eed-8777-da1c33c744e3.gif)
 
 
 ### 2. Drag & Drop 이벤트
 #### ✅ 마우스의 Drag & Drop 이벤트를 활용해 이슈의 순서를 변경 
 #### ✅ Drag & Drop 이벤트를 활용해 이슈의 상태를 변경(옆으로 상태 바뀌는 사진)
-![드래그앤드랍](https://user-images.githubusercontent.com/107922059/210996674-08b67998-0a87-4c5c-9a70-941e3f602601.gif)
+![dnd](https://user-images.githubusercontent.com/101863209/211030555-5164c858-673a-471e-b7e8-f88bc80c8781.gif)
+
 
 ### 3. 로딩페이지
 #### ✅ 데이터가 로딩중인 경우 사용자가 이를 인식할 수 있도록 UX를 고려
 #### ✅ 로딩 중에는 액션이 발생하는 것을 방지
-![로딩](https://user-images.githubusercontent.com/107922059/210996634-17336457-82d0-48d3-afd9-3d23c2d2b94b.gif)
+![로딩중액션](https://user-images.githubusercontent.com/101863209/211030659-7ea7cc99-c25f-4bb4-88b2-1445ba86322d.gif)
 
 
 ### 4. 기타
 #### ✅ 새로고침 후 데이터 유지
-![데이터 수정후 유지](https://user-images.githubusercontent.com/107922059/210996683-0becca9b-f63f-4f00-b56e-64c9db86c5f7.gif)
+![새로고침유지](https://user-images.githubusercontent.com/101863209/211030714-0a9bf069-dd4b-462a-bdc5-a9d0b7612a5d.gif)
+
 
 ## 💡Best Practice(코드 캡처)
 
