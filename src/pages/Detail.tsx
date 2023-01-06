@@ -105,6 +105,7 @@ const ContainerWrapper = styled.div`
   height: 450px;
   background-color: white;
   border-radius: 10px;
+  cursor: auto;
 `;
 
 const ContainerHeader = styled.div`
