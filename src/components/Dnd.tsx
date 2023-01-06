@@ -64,12 +64,16 @@ const Dnd = <T extends object>({ data, render, onDrop }: Props<T>) => {
     if (onDrop) onDrop(copyListItems);
   };
 
+  React.useEffect(() => {
+    setState(data);
+  }, [data]);
+
   return (
     <>
       {Object.entries(state).map(([key, value]) => (
         <ul key={key} className="container">
           {value &&
-            value.length &&
+            value.length > 0 &&
             value.map((d: Issue, rowIndex: number) => (
               <li
                 className="book"
