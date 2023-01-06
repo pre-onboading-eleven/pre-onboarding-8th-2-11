@@ -59,18 +59,34 @@ const issueStore = create(
           }));
         },
         updateIssueData: (newIssue, prevStatus) => {
-          set((state) => ({
-            IssueData: {
+          //새 코드
+          //같은 state로 이동시 기존 이슈 삭제 삭제된 자리에 새 이슈 추가
+          if (newIssue.status === prevStatus) {
+            set((state) => ({
               ...state.IssueData,
-              [prevStatus]: state.IssueData[prevStatus].filter(
-                (item) => item.id !== newIssue.id
+              [prevStatus]: state.IssueData[prevStatus].splice(
+                state.IssueData[prevStatus].findIndex(
+                  (obj) => obj.id === newIssue.id
+                ),
+                1,
+                newIssue
               ),
-              [newIssue.status]: [
-                ...state.IssueData[newIssue.status],
-                newIssue,
-              ],
-            },
-          }));
+            }));
+          }
+          //기존 코드
+          else
+            set((state) => ({
+              IssueData: {
+                ...state.IssueData,
+                [prevStatus]: state.IssueData[prevStatus].filter(
+                  (item) => item.id !== newIssue.id
+                ),
+                [newIssue.status]: [
+                  ...state.IssueData[newIssue.status],
+                  newIssue,
+                ],
+              },
+            }));
         },
         dndIssueData: (newIssues) => {
           set(() => ({
