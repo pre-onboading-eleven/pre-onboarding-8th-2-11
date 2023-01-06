@@ -6,6 +6,8 @@
 
 ## ✈️ 배포 링크
 
+https://deploy-preview-18--relaxed-sable-ff1216.netlify.app
+
 ## 👨‍👩‍👧‍👦 팀 소개
 
 <table>
