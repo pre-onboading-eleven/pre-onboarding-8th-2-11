@@ -1,17 +1,6 @@
 import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-const SampleData = [
-  {
-    id: 0, // 고유번호
-    title: '기본', // 제목
-    content: '내용을채워주세요', // 내용
-    deadDate: '2023-01-05T10:54', //마감일
-    status: 0, // 상태
-    who: '박준서',
-  },
-];
-
 const initialData = {
   todo: [
     {
@@ -80,6 +69,13 @@ const issueStore = create(
                 ...state.IssueData[newIssue.status],
                 newIssue,
               ],
+            },
+          }));
+        },
+        dndIssueData: (newIssues) => {
+          set(() => ({
+            IssueData: {
+              ...newIssues,
             },
           }));
         },

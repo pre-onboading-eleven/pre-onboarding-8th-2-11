@@ -2,7 +2,6 @@ import Issue from './Issue';
 import styled from 'styled-components';
 
 const Book = ({ item }: any) => {
-  console.log('🚀 ~ file: Book.tsx:6 ~ Book ~ item', item);
   return (
     <div>
       {item ? (
