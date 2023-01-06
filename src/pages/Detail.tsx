@@ -6,7 +6,11 @@ import { issueStore } from '../hooks/store';
 import AddForm from '../components/AddForm';
 import { IIssue } from './Main';
 
-const TYPE = ['할 일', '진행 중', '완료'];
+const TYPE = {
+  todo: '할 일',
+  doing: '진행 중',
+  done: '완료',
+};
 
 interface PropsType {
   mark: IIssue;
