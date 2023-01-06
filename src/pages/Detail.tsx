@@ -6,7 +6,11 @@ import { issueStore } from '../hooks/store';
 import AddForm from '../components/AddForm';
 import { IIssue } from './Main';
 
-const TYPE = {
+interface IType {
+  [key: string]: string;
+}
+
+const TYPE: IType = {
   todo: '할 일',
   doing: '진행 중',
   done: '완료',
@@ -51,7 +55,7 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
               <h1>{mark.title}</h1>
             </DetailHeader>
             <DetailBody>
-              <p>상태 : {TYPE[mark.status]}</p>
+              <p>상태 : {TYPE[mark?.status as string]}</p>
               <p>마감일 : {deadDate}</p>
               <p>담당자 : {mark.who}</p>
               <p>내용</p>

@@ -12,7 +12,7 @@ export interface IIssue {
   title?: string; // 제목
   content?: string; // 내용
   deadDate?: string; //마감일
-  status?: number; // 상태
+  status?: string; // 상태
   who?: string;
   order?: number;
 }

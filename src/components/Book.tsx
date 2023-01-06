@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { IIssue } from '../pages/Main';
 
-const Book = ({ item }: IIssue) => {
+const Book = ({ item }: any) => {
   return (
     <div>
       {item ? (
