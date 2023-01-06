@@ -59,7 +59,6 @@ const issueStore = create(
           }));
         },
         updateIssueData: (newIssue, prevStatus) => {
-          //새 코드
           //같은 state로 이동시 기존 이슈 삭제 삭제된 자리에 새 이슈 추가
           if (newIssue.status === prevStatus) {
             set((state) => ({
@@ -72,23 +71,7 @@ const issueStore = create(
                 newIssue
               ),
             }));
-          }
-          //기존 코드
-          // else { //FIXME D&D status 개선
-          //   set((state) => ({
-          //     IssueData: {
-          //       ...state.IssueData,
-          //       [prevStatus]: state.IssueData[prevStatus].filter(
-          //         (item) => item.id !== newIssue.id
-          //       ),
-          //       [newIssue.status]: [
-          //         ...state.IssueData[newIssue.status],
-          //         newIssue,
-          //       ],
-          //     },
-          //   }));
-          // }
-          else {
+          } else {
             set((state) => ({
               IssueData: {
                 ...state.IssueData,
@@ -96,21 +79,12 @@ const issueStore = create(
                   (item) => item.id !== newIssue.id
                 ),
                 [newIssue.status]: [
-                  ...state.IssueData[newIssue.status].filter(
-                    (item) => item.id !== newIssue.id
-                  ),
+                  ...state.IssueData[newIssue.status],
                   newIssue,
                 ],
               },
             }));
           }
-        },
-        dndIssueData: (newIssues) => {
-          set(() => ({
-            IssueData: {
-              ...newIssues,
-            },
-          }));
         },
         dndIssueData: (newIssues) => {
           set(() => ({
