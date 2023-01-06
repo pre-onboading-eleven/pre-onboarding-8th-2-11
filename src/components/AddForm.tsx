@@ -246,7 +246,7 @@ const SaveBtn = styled.button`
   height: 50px;
   border-radius: 10px;
   border: none;
-  background-color: #44c975;
+  background-color: #003049;
   color: white;
   font-size: 20px;
   font-weight: bold;

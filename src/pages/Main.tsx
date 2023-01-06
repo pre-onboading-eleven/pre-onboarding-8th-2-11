@@ -33,8 +33,6 @@ const Home = () => {
     }, 500);
   }, []);
 
-  // console.log('main page', IssueData);
-
   return (
     <>
       {loading ? (
@@ -43,13 +41,15 @@ const Home = () => {
         </>
       ) : (
         <Wrapper>
-          {IssueData && (
-            <Dnd
-              data={IssueData}
-              render={(v) => <Book item={v} />}
-              onDrop={(v) => dndIssueData(v)}
-            />
-          )}
+          <CardContainer>
+            {IssueData && (
+              <Dnd
+                data={IssueData}
+                render={(v) => <Book item={v} />}
+                onDrop={(v) => dndIssueData(v)}
+              />
+            )}
+          </CardContainer>
         </Wrapper>
       )}
     </>
@@ -59,18 +59,20 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.div`
-  width: 1200px;
-  padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   .container {
     width: 390px;
-    background-color: ${(props) => props.color};
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-    border-radius: 10px;
+    box-sizing: border-box;
   }
   .book {
     list-style: none;
     padding-left: 0;
   }
+`;
+
+const CardContainer = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
 `;

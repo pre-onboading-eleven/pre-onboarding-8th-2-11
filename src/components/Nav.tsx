@@ -18,7 +18,6 @@ const Nav = () => {
       >
         WANTED TEAM 11
       </Logo>
-      {/* <Link to={'/'}>Home</Link> */}
       <AddIssue onClick={showModal}>ADD</AddIssue>
       {openModal && <AddIssueInput setOpenModal={setOpenModal} />}
     </NavWrapper>
