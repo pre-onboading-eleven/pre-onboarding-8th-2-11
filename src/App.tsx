@@ -1,7 +1,5 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
-import AddIssueInput from './pages/AddIssueInput';
-import Detail from './pages/Detail';
 
 import Nav from './components/Nav';
 import Home from './pages/Main';
