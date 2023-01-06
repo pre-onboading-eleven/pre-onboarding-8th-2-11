@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Detail from '../pages/Detail';
 import { IIssue } from '../pages/Main';
 
@@ -8,8 +7,6 @@ interface IProps {
 }
 
 const Mark = ({ mark }: IProps) => {
-  const navigate = useNavigate();
-
   const [onHold, setOnHold] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -28,6 +25,8 @@ const Mark = ({ mark }: IProps) => {
     setOnHold(false);
   };
 
+  const deadDate = mark?.deadDate?.split('T').join(' ');
+
   return (
     <div
       onClick={() => setOpenModal(!openModal)}
@@ -40,11 +39,9 @@ const Mark = ({ mark }: IProps) => {
         onDragStart={dragStartHandler}
         onDragEnd={dragEndHandler}
       >
-        <h3 className="m-1 font-medium text-slate-700">
-          {mark.id}.{mark.title}
-        </h3>
+        <h3 className="m-1 font-medium text-slate-700">{mark.title}</h3>
         <p className="m-1 text-sm text-gray-500">{mark.content}</p>
-        <p>{mark.deadDate}</p>
+        <p>{deadDate}</p>
         <p>담당자 : {mark.who}</p>
       </div>
       {openModal && <Detail mark={mark} setOpenModal={setOpenModal} />}

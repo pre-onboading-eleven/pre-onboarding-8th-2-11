@@ -19,17 +19,15 @@ interface PropsType {
 
 const Detail = ({ mark, setOpenModal }: PropsType) => {
   const { delIssue, updateIssueData } = issueStore();
-  // const location = useLocation();
   const navigate = useNavigate();
-  // const [mark, setMark] = useState(location.state);
   const [isEditing, toggleEditing] = useReducer((pre) => !pre, false);
 
   const onSubmit = (newIssue: IIssue, prevStatus: string) => {
     updateIssueData(newIssue, prevStatus);
-    // setMark(newIssue);
     toggleEditing();
   };
 
+  const deadDate = mark?.deadDate?.split('T').join(' ');
   return (
     <ModalWrapper onClick={(e) => e.stopPropagation()}>
       <ContainerHeader>
@@ -51,13 +49,11 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
         <ContainerWrapper>
           <DetailWrapper>
             <DetailHeader>
-              <h1>
-                {mark.id} {mark.title}
-              </h1>
+              <h1>{mark.title}</h1>
             </DetailHeader>
             <DetailBody>
               <p>상태 : {TYPE[mark.status]}</p>
-              <p>마감일 : {mark.deadDate}</p>
+              <p>마감일 : {deadDate}</p>
               <p>담당자 : {mark.who}</p>
               <p>내용</p>
               <ContentDiv>{mark.content}</ContentDiv>

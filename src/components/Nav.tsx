@@ -16,7 +16,7 @@ const Nav = () => {
             to={'/'}
             className="my-2 space-x-1 rounded-full border p-2 font-bold"
           >
-            wanted 11team
+            wanted eleven
           </Link>
           <div className="flex items-center space-x-1 text-sm">
             <Link to={'/'}>Home</Link>
