@@ -95,6 +95,29 @@ yarn dev
 ```
 
 ## 🌲 src 폴더 구조
+```
+📦 
+└─src
+  ├─ App.tsx
+  ├─ assets
+  │  ├─ react.svg
+  │  └─ spinner.gif
+  ├─ components
+  │  ├─ AddForm.tsx
+  │  ├─ Book.tsx
+  │  ├─ Dnd.tsx
+  │  ├─ Issue.tsx
+  │  ├─ Loading.tsx
+  │  └─ Nav.tsx
+  ├─ hooks
+  │  └─ store.js
+  ├─ main.tsx
+  ├─ pages
+  │  ├─ AddIssueInput.tsx
+  │  ├─ Detail.tsx
+  │  └─ Main.tsx
+  └─ vite-env.d.ts
+```
 
 
 ## 🎬 기능 소개(gif)
