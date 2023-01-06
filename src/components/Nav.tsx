@@ -1,24 +1,59 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import AddIssueInput from '../pages/AddIssueInput';
 
 const Nav = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+  const showModal = () => {
+    setOpenModal(true);
+  };
   return (
-    <nav className=" bg-main">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="flex justify-between text-sub">
-          <Link
-            to={'/'}
-            className="my-2 space-x-1 rounded-full border p-2 font-bold"
-          >
-            wanted 11team
-          </Link>
-          <div className="flex items-center space-x-1 text-sm">
-            <Link to={'/'}>Home</Link>
-            <Link to={'/add'}>addIssue</Link>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <NavWrapper>
+      <Logo
+        onClick={() => {
+          navigate('/');
+        }}
+      >
+        WANTED TEAM 11
+      </Logo>
+      <AddIssue onClick={showModal}>Add</AddIssue>
+      {openModal && <AddIssueInput setOpenModal={setOpenModal} />}
+    </NavWrapper>
   );
 };
+
+const NavWrapper = styled.div`
+  height: 70px;
+  border-bottom: 1px solid gray;
+  padding: 0 70px 0 70px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Logo = styled.span`
+  font-weight: bold;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const AddIssue = styled.button`
+  background-color: #c1121f;
+  &:hover {
+    background: #db6565;
+    color: white;
+    transition: 0.5s;
+  }
+  width: 50px;
+  height: 50px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin: 5px;
+  cursor: pointer;
+`;
 
 export default Nav;

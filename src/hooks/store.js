@@ -1,35 +1,98 @@
 import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-const SampleData = [
-  {
-    id: 0, // 고유번호
-    title: '기본', // 제목
-    content: '내용을채워주세요', // 내용
-    deadDate: '2023-01-05T10:54', //마감일
-    status: 0, // 상태
-    who: '박준서',
-  },
-];
+const initialData = {
+  todo: [
+    {
+      id: 0, // 고유번호
+      title: 'Title', // 제목
+      content: 'ddd', // 내용
+      deadDate: '2023-01-04T20:28', //마감일
+      status: 'todo', // 상태
+      who: '조민우',
+      order: 0,
+    },
+  ],
+  doing: [
+    {
+      id: 1, // 고유번호
+      title: 'Title2', // 제목
+      content: 'ddd2', // 내용
+      deadDate: '2023-01-04T20:28', //마감일
+      status: 'doing', // 상태
+      who: '장태경',
+      order: 0,
+    },
+  ],
+  done: [
+    {
+      id: 2, // 고유번호
+      title: 'Title', // 제목
+      content: 'ddd', // 내용
+      deadDate: '2023-01-04T20:28', //마감일
+      status: 'done', // 상태
+      who: '박민경',
+      order: 0,
+    },
+  ],
+};
 
 const issueStore = create(
   devtools(
     persist(
       (set, get) => ({
-        IssueData: SampleData, //state
-        setIssueData: (newIssue) =>
-          set((state) => ({ IssueData: [...state.IssueData, newIssue] })),
-        delIssue: (delId) =>
+        IssueData: initialData, //state
+        setIssueData: (newIssue) => {
           set((state) => ({
-            IssueData: state.IssueData.filter((item) => item.id !== delId),
-          })),
-        updateIssueData: (delId, newIssue) =>
+            IssueData: {
+              ...state.IssueData,
+              todo: [...state.IssueData.todo, newIssue],
+            },
+          }));
+        },
+        delIssue: (key, delId) => {
           set((state) => ({
-            IssueData: [
-              ...get().IssueData.filter((item) => item.id !== delId),
-              newIssue,
-            ],
-          })),
+            IssueData: {
+              ...state.IssueData,
+              [key]: state.IssueData[key].filter((item) => item.id !== delId),
+            },
+          }));
+        },
+        updateIssueData: (newIssue, prevStatus) => {
+          //같은 state로 이동시 기존 이슈 삭제 삭제된 자리에 새 이슈 추가
+          if (newIssue.status === prevStatus) {
+            set((state) => ({
+              ...state.IssueData,
+              [prevStatus]: state.IssueData[prevStatus].splice(
+                state.IssueData[prevStatus].findIndex(
+                  (obj) => obj.id === newIssue.id
+                ),
+                1,
+                newIssue
+              ),
+            }));
+          } else {
+            set((state) => ({
+              IssueData: {
+                ...state.IssueData,
+                [prevStatus]: state.IssueData[prevStatus].filter(
+                  (item) => item.id !== newIssue.id
+                ),
+                [newIssue.status]: [
+                  ...state.IssueData[newIssue.status],
+                  newIssue,
+                ],
+              },
+            }));
+          }
+        },
+        dndIssueData: (newIssues) => {
+          set(() => ({
+            IssueData: {
+              ...newIssues,
+            },
+          }));
+        },
       }),
       {
         name: 'issue-storage', // name of item in the storage (must be unique)

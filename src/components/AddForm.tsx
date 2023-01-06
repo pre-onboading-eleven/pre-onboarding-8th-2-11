@@ -1,9 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { issueStore } from '../hooks/store';
-
-import { issueProcess } from '../pages/Main';
-
 import { IIssue } from '../pages/Main';
+import styled from 'styled-components';
 
 const whoList = [
   '이호준',
@@ -19,10 +17,10 @@ const whoList = [
 interface IProps {
   onSubmit: any;
   edit?: IIssue;
+  setOpenModal?: React.Dispatch<React.SetStateAction<boolean>> | any;
 }
 
-const AddForm = ({ onSubmit, edit }: IProps) => {
-  console.log('edit', edit);
+const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
   const { IssueData } = issueStore();
 
   const idRef = useRef<HTMLInputElement>(null);
@@ -32,7 +30,7 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
 
   const [whoKeyword, setWhoKeyword] = useState<string[]>([]);
   const [newWho, setNewWho] = useState<string>();
-  const [newStatus, setNewStatus] = useState<number>(0);
+  const [newStatus, setNewStatus] = useState<string>('todo');
 
   const onChangeData = (e: React.FormEvent<HTMLInputElement>) => {
     const keyword = e.currentTarget.value;
@@ -40,11 +38,9 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
       const temp = whoList.filter((who) => who.toLowerCase().includes(keyword));
       setWhoKeyword(temp);
     }
-    // setWhoKeyword(e.currentTarget.value);
   };
 
-  const addNewStatus = (status: number) => {
-    console.log('status', status);
+  const addNewStatus = (status: string) => {
     setNewStatus(status);
   };
 
@@ -54,116 +50,206 @@ const AddForm = ({ onSubmit, edit }: IProps) => {
       newIssue = {
         id: edit
           ? edit.id
-          : IssueData.length > 0
-          ? IssueData[IssueData.length - 1].id + 1
+          : IssueData['todo'].length > 0
+          ? IssueData['todo'][IssueData['todo'].length - 1].id + 1
           : 0,
         title: titleRef?.current?.value,
         content: contentRef?.current?.value,
         deadDate: dateRef?.current?.value,
-        who: newWho ?? edit.who,
-        status: newStatus ?? edit.status,
+        who: newWho ?? edit?.who,
+        status: edit ? newStatus : 'todo',
+        order: 0,
       };
     }
-    onSubmit(newIssue);
+
+    if (edit) {
+      onSubmit(newIssue, edit.status);
+    } else {
+      onSubmit(newIssue);
+      setOpenModal(false);
+    }
   };
 
   useEffect(() => {
     if (edit) {
-      console.log('edit.who :>> ', edit.who);
-      setNewWho(edit.who);
-      setNewStatus(edit.status);
+      // console.log('edit:>> ', edit.status);
+      setNewWho(edit?.who);
+      setNewStatus(edit.status as string);
     }
   }, []);
 
-  const BUTTONDISABLED = newWho && newStatus >= 0;
+  const BUTTONDISABLED = newWho && newStatus;
   return (
-    <div className="flex flex-col m-10">
-      {edit ? (
-        <label htmlFor="">
-          id:
-          <input
-            defaultValue={edit ? edit.id : null}
-            className="my-1"
+    <ContainerWrapper>
+      <ContainerBody>
+        <InputWrapper>
+          제목
+          <InputModal
             type="text"
+            defaultValue={edit ? edit.title : ''}
             placeholder="제목을 입력하세요"
-            ref={idRef}
-            disabled={edit}
+            ref={titleRef}
           />
-        </label>
-      ) : (
-        ''
-      )}
-
-      <input
-        defaultValue={edit ? edit.title : null}
-        className="my-1"
-        type="text"
-        placeholder="제목을 입력하세요"
-        ref={titleRef}
-      />
-
-      <label htmlFor="content">
-        <textarea
-          defaultValue={edit ? edit.content : null}
+        </InputWrapper>
+        {edit ? (
+          <InputWrapper>
+            상태
+            <Select
+              onChange={(e) => {
+                addNewStatus(e.target.value);
+              }}
+              defaultValue={edit ? edit.status : ''}
+            >
+              <option value="">상태를 선택하세요</option>
+              {['todo', 'doing', 'done'].map((item, i) => {
+                return (
+                  <option key={i} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </Select>
+          </InputWrapper>
+        ) : (
+          ''
+        )}
+        <InputWrapper>
+          <label htmlFor="deadDate">마감일</label>
+          <InputModal
+            type="datetime-local"
+            ref={dateRef}
+            defaultValue={edit ? edit.deadDate : ''}
+          />
+        </InputWrapper>
+        <AssignWrapper>
+          <label htmlFor="deadDate">담당자</label>
+          <AssignInput>
+            <SearchInput
+              type="text"
+              onChange={onChangeData}
+              defaultValue={edit ? edit.who : ''}
+            />
+            <AssignSelect
+              onChange={(e) => {
+                setNewWho(e.target.value);
+              }}
+              defaultValue={edit ? edit.who : ''}
+            >
+              <option value="">담당자를 선택하세요</option>
+              {whoKeyword &&
+                whoKeyword.map((item, i) => {
+                  return (
+                    <option key={i} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+            </AssignSelect>
+          </AssignInput>
+        </AssignWrapper>
+        <label htmlFor="content">내용</label>
+        <ContentInput
+          defaultValue={edit ? edit.content : ''}
           name=""
           id="content"
           placeholder="내용을 입력하세요"
           ref={contentRef}
-        ></textarea>
-      </label>
-      <label htmlFor="deadDate">
-        마감일
-        <input
-          type="datetime-local"
-          ref={dateRef}
-          defaultValue={edit ? edit.deadDate : null}
-        />
-      </label>
-      <label htmlFor="deadDate">
-        담당자
-        <input onChange={onChangeData} defaultValue={edit ? edit.who : null} />
-      </label>
-      <select
-        onChange={(e) => {
-          setNewWho(e.target.value);
-        }}
-        defaultValue={edit ? edit.who : null}
-      >
-        <option value="">담당자를 선택하세요</option>
-        {whoKeyword &&
-          whoKeyword.map((item, i) => {
-            return (
-              <option key={i} value={item}>
-                {item}
-              </option>
-            );
-          })}
-      </select>
-      <select
-        onChange={(e) => {
-          addNewStatus(Number(e.target.value));
-        }}
-        defaultValue={edit ? edit.status : null}
-      >
-        <option value="">상태를 선택하세요</option>
-        {issueProcess.map((item) => {
-          return (
-            <option key={item.id} value={item.id}>
-              {item.title}
-            </option>
-          );
-        })}
-      </select>
-      <button
-        type="submit"
-        onClick={onSave}
-        className="border bg-gray-100"
-        disabled={!BUTTONDISABLED}
-      >
-        저장
-      </button>
-    </div>
+        ></ContentInput>
+        <BtnWrapper>
+          <SaveBtn
+            type="submit"
+            onClick={onSave}
+            className="border bg-gray-100"
+            disabled={!BUTTONDISABLED}
+          >
+            저장
+          </SaveBtn>
+        </BtnWrapper>
+      </ContainerBody>
+    </ContainerWrapper>
   );
 };
 
 export default AddForm;
+
+const ContainerWrapper = styled.div`
+  width: 500px;
+  height: 450px;
+  background-color: white;
+  border-radius: 10px;
+`;
+
+const ContainerBody = styled.div`
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const AssignWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const AssignInput = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 81%;
+`;
+
+const SearchInput = styled.input`
+  width: 47%;
+  height: 20px;
+`;
+
+const AssignSelect = styled.select`
+  width: 47%;
+  height: 25px;
+`;
+
+const Select = styled.select`
+  width: 81%;
+  height: 25px;
+`;
+
+const InputModal = styled.input`
+  width: 80%;
+  height: 25px;
+  outline: none;
+`;
+
+const ContentInput = styled.textarea`
+  height: 180px;
+  margin-top: 10px;
+  outline: none;
+  resize: none;
+`;
+
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const SaveBtn = styled.button`
+  width: 70px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #003049;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+`;
