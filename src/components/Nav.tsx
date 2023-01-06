@@ -18,7 +18,7 @@ const Nav = () => {
       >
         WANTED TEAM 11
       </Logo>
-      <AddIssue onClick={showModal}>ADD</AddIssue>
+      <AddIssue onClick={showModal}>Add</AddIssue>
       {openModal && <AddIssueInput setOpenModal={setOpenModal} />}
     </NavWrapper>
   );
@@ -41,10 +41,15 @@ const Logo = styled.span`
 `;
 
 const AddIssue = styled.button`
-  background-color: #dbdbdb7e;
+  background-color: #c1121f;
+  &:hover {
+    background: #db6565;
+    color: white;
+    transition: 0.5s;
+  }
   width: 50px;
   height: 50px;
-  color: gray;
+  color: white;
   border: none;
   border-radius: 10px;
   margin: 5px;
