@@ -1,8 +1,10 @@
-import Book from '../components/Book';
-import Loading from '../components/Loading';
 import { useState, useEffect } from 'react';
 import { issueStore } from '../hooks/store';
+
 import styled from 'styled-components';
+
+import Book from '../components/Book';
+import Loading from '../components/Loading';
 import Dnd from '../components/Dnd';
 
 export interface IIssue {
@@ -24,13 +26,14 @@ export interface IIssueProcess {
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const { IssueData, dndIssueData } = issueStore();
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 0); //FIXME 시간 수정
+    }, 500);
   }, []);
 
-  console.log('main page', IssueData);
+  // console.log('main page', IssueData);
 
   return (
     <>

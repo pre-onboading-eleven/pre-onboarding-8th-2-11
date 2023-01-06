@@ -71,30 +71,33 @@ const Dnd = <T extends object>({ data, render, onDrop }: Props<T>) => {
   return (
     <>
       {Object.entries(state).map(([key, value]) => (
-        <ul key={key} className="container">
-          {value &&
-            value.length > 0 &&
-            value.map((d: Issue, rowIndex: number) => (
-              <li
-                className="book"
-                key={rowIndex}
-                onDragStart={(e) => dragStart(e, key, rowIndex)}
-                onDragEnter={(e) => dragEnter(e, key, rowIndex)}
-                onDragEnd={handleDrop}
-                draggable
-              >
-                {render(d)}
-              </li>
-            ))}
-          <DndEndItem
-            className="book"
-            onDragStart={(e) => dragStart(e, key, value.length - 1)}
-            onDragEnter={(e) => dragEnter(e, key, value.length - 1)}
-            onDragEnd={handleDrop}
-          >
-            Drag Here
-          </DndEndItem>
-        </ul>
+        <div key={key}>
+          <Title>{key}</Title>
+          <ul className="container">
+            {value &&
+              value.length > 0 &&
+              value.map((d: Issue, rowIndex: number) => (
+                <li
+                  className="book"
+                  key={rowIndex}
+                  onDragStart={(e) => dragStart(e, key, rowIndex)}
+                  onDragEnter={(e) => dragEnter(e, key, rowIndex)}
+                  onDragEnd={handleDrop}
+                  draggable
+                >
+                  {render(d)}
+                </li>
+              ))}
+            <DndEndItem
+              className="book"
+              onDragStart={(e) => dragStart(e, key, value.length - 1)}
+              onDragEnter={(e) => dragEnter(e, key, value.length - 1)}
+              onDragEnd={handleDrop}
+            >
+              Drag Here
+            </DndEndItem>
+          </ul>
+        </div>
       ))}
     </>
   );
@@ -105,6 +108,12 @@ const DndEndItem = styled.li`
   padding: 15px 0;
   text-align: center;
   font-weight: bold;
+`;
+
+const Title = styled.h1`
+  color: #003049;
+  text-align: center;
+  cursor: default;
 `;
 
 export default Dnd;

@@ -21,7 +21,6 @@ interface IProps {
 }
 
 const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
-  console.log('edit', edit);
   const { IssueData } = issueStore();
 
   const idRef = useRef<HTMLInputElement>(null);
@@ -62,7 +61,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
         order: 0,
       };
     }
-    
+
     if (edit) {
       onSubmit(newIssue, edit.status);
     } else {
@@ -73,7 +72,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
 
   useEffect(() => {
     if (edit) {
-      console.log('edit:>> ', edit.status);
+      // console.log('edit:>> ', edit.status);
       setNewWho(edit.who);
       setNewStatus(edit.status);
     }
