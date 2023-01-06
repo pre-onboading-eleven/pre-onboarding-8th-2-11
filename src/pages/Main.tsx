@@ -30,6 +30,8 @@ const Home = () => {
     }, 0); //FIXME 시간 수정
   }, []);
 
+  console.log('main page', IssueData);
+
   return (
     <>
       {loading ? (

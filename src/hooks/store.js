@@ -95,6 +95,13 @@ const issueStore = create(
             },
           }));
         },
+        dndIssueData: (newIssues) => {
+          set(() => ({
+            IssueData: {
+              ...newIssues,
+            },
+          }));
+        },
       }),
       {
         name: 'issue-storage', // name of item in the storage (must be unique)
