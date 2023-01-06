@@ -21,27 +21,9 @@ export interface IIssueProcess {
   color: string;
 }
 
-// export const issueProcess: IIssueProcess[] = [
-//   {
-//     id: 0,
-//     title: '할 일',
-//     color: '#ebebeb',
-//   },
-//   {
-//     id: 1,
-//     title: '진행 중',
-//     color: '#ffd2db',
-//   },
-//   {
-//     id: 2,
-//     title: '완료',
-//     color: '#bad6f9',
-//   },
-// ];
-
 const Home = () => {
   const [loading, setLoading] = useState(true);
-  const { IssueData } = issueStore();
+  const { IssueData, dndIssueData } = issueStore();
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -56,21 +38,13 @@ const Home = () => {
         </>
       ) : (
         <Wrapper>
-          {
-            IssueData && (
-              <Dnd data={IssueData} render={(v) => <Book item={v} />} />
-            )
-            // Object.entries(IssueData).map(([key, value]) => {
-            //   return (
-            //     <ContainerWrapper
-            //       key={key}
-            //       // color={issueProcess[item.id].color}
-            //     >
-            //       <Book item={IssueData[key]} />
-            //     </ContainerWrapper>
-            //   );
-            // })
-          }
+          {IssueData && (
+            <Dnd
+              data={IssueData}
+              render={(v) => <Book item={v} />}
+              onDrop={(v) => dndIssueData(v)}
+            />
+          )}
         </Wrapper>
       )}
     </>

@@ -68,18 +68,20 @@ const Dnd = <T extends object>({ data, render, onDrop }: Props<T>) => {
     <>
       {Object.entries(state).map(([key, value]) => (
         <ul key={key} className="container">
-          {value.map((d: Issue, rowIndex: number) => (
-            <li
-              className="book"
-              key={rowIndex}
-              onDragStart={(e) => dragStart(e, key, rowIndex)}
-              onDragEnter={(e) => dragEnter(e, key, rowIndex)}
-              onDragEnd={handleDrop}
-              draggable
-            >
-              {render(d)}
-            </li>
-          ))}
+          {value &&
+            value.length &&
+            value.map((d: Issue, rowIndex: number) => (
+              <li
+                className="book"
+                key={rowIndex}
+                onDragStart={(e) => dragStart(e, key, rowIndex)}
+                onDragEnter={(e) => dragEnter(e, key, rowIndex)}
+                onDragEnd={handleDrop}
+                draggable
+              >
+                {render(d)}
+              </li>
+            ))}
           <DndEndItem
             className="book"
             onDragStart={(e) => dragStart(e, key, value.length - 1)}
