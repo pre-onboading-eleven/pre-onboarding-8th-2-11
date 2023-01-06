@@ -58,6 +58,9 @@ const Dnd = <T extends object>({ data, render, onDrop }: Props<T>) => {
       dragItemContent
     );
 
+    // drag end로 status를 바꿔주는 코드
+    dragItemContent.status = dragColumnOverItem.current;
+
     dragRowItem.current = null;
     dragRowOverItem.current = null;
     setState(copyListItems);
