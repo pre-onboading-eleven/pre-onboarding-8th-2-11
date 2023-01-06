@@ -161,13 +161,8 @@ yarn dev
 
 ```
 _ Best Practice 선정 이유 _
-라이브러리를 사용하지 않고 dnd 기능을 구현하는데에 많은 어려움이 있었지만 동료학습과 협업으로
-인해 마침내 구현할 수 있었습니다. 구현할때 저희는 마우스 이벤트의 onDragStart, onDragEnter,
-OnDragEnd 기능을 이용하여 구현했습니다. 먼저 드래그가 시작될때와 드래그 중일때 아이템의 위치를
-계속 감시하며 dragRowOverItem과 dragColumnOverItem (ref) 값을 업데이트 시켜주었습니다.
-드래그가 끝났을때 발생하는 이벤트인 onDragEnd에서 handleDrop 함수를 통해 이동된 곳의 status를
-받아 해당 배열로 데이터가 이동할 수 있도록 구현했습니다. 이 과정에서 자료구조에 맞추어
-structuredClone() method로 깊은 복사를 하였습니다.
+라이브러리를 사용하지 않고 dnd 기능을 구현하는데에 많은 어려움이 있었지만 동료학습과 협업으로 인해 마침내 구현할 수 있었습니다. 구현할때 저희는 마우스 이벤트의 onDragStart, onDragEnter, OnDragEnd 기능을 이용하여 구현했습니다. 먼저 드래그가 시작될때와 드래그 중일때 아이템의 위치를 계속 감시하며 dragRowOverItem과 dragColumnOverItem (ref) 값을 업데이트 시켜주었습니다.
+드래그가 끝났을때 발생하는 이벤트인 onDragEnd에서 handleDrop 함수를 통해 이동된 곳의 status를 받아 해당 배열로 데이터가 이동할 수 있도록 구현했습니다. 이 과정에서 자료구조에 맞추어 structuredClone() method로 깊은 복사를 하였습니다. 또한 중요하게 생각했던 점은 따로 Dnd를 컴포넌트로 분리해, 확장성면을 고려했습니다. render 메서드를 통해 사용자에게 각 투두 리스트들의 커스텀을 자유롭게 할 수 있도록 하였으며, onDrop 메서드는 Dnd 내부 상태를 넘겨 사용자가 데이터 처리를 원하는대로 할 수 있도록 하였습니다.
 
 ```
 
