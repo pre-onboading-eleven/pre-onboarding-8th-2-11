@@ -74,7 +74,21 @@ const issueStore = create(
             }));
           }
           //기존 코드
-          else
+          // else { //FIXME D&D status 개선
+          //   set((state) => ({
+          //     IssueData: {
+          //       ...state.IssueData,
+          //       [prevStatus]: state.IssueData[prevStatus].filter(
+          //         (item) => item.id !== newIssue.id
+          //       ),
+          //       [newIssue.status]: [
+          //         ...state.IssueData[newIssue.status],
+          //         newIssue,
+          //       ],
+          //     },
+          //   }));
+          // }
+          else {
             set((state) => ({
               IssueData: {
                 ...state.IssueData,
@@ -82,11 +96,14 @@ const issueStore = create(
                   (item) => item.id !== newIssue.id
                 ),
                 [newIssue.status]: [
-                  ...state.IssueData[newIssue.status],
+                  ...state.IssueData[newIssue.status].filter(
+                    (item) => item.id !== newIssue.id
+                  ),
                   newIssue,
                 ],
               },
             }));
+          }
         },
         dndIssueData: (newIssues) => {
           set(() => ({

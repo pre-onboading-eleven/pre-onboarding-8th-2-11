@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, SetStateAction } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { issueStore } from '../hooks/store';
 import { IIssue } from '../pages/Main';
 import styled from 'styled-components';
@@ -17,7 +17,7 @@ const whoList = [
 interface IProps {
   onSubmit: any;
   edit?: IIssue;
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModal?: React.Dispatch<React.SetStateAction<boolean>> | any;
 }
 
 const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
@@ -56,7 +56,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
         title: titleRef?.current?.value,
         content: contentRef?.current?.value,
         deadDate: dateRef?.current?.value,
-        who: newWho ?? edit.who,
+        who: newWho ?? edit?.who,
         status: edit ? newStatus : 'todo',
         order: 0,
       };
@@ -73,8 +73,8 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
   useEffect(() => {
     if (edit) {
       // console.log('edit:>> ', edit.status);
-      setNewWho(edit.who);
-      setNewStatus(edit.status);
+      setNewWho(edit?.who);
+      setNewStatus(edit.status as string);
     }
   }, []);
 
@@ -86,7 +86,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
           제목
           <InputModal
             type="text"
-            defaultValue={edit ? edit.title : null}
+            defaultValue={edit ? edit.title : ''}
             placeholder="제목을 입력하세요"
             ref={titleRef}
           />
@@ -98,7 +98,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
               onChange={(e) => {
                 addNewStatus(e.target.value);
               }}
-              defaultValue={edit ? edit.status : null}
+              defaultValue={edit ? edit.status : ''}
             >
               <option value="">상태를 선택하세요</option>
               {['todo', 'doing', 'done'].map((item, i) => {
@@ -118,7 +118,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
           <InputModal
             type="datetime-local"
             ref={dateRef}
-            defaultValue={edit ? edit.deadDate : null}
+            defaultValue={edit ? edit.deadDate : ''}
           />
         </InputWrapper>
         <AssignWrapper>
@@ -127,13 +127,13 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
             <SearchInput
               type="text"
               onChange={onChangeData}
-              defaultValue={edit ? edit.who : null}
+              defaultValue={edit ? edit.who : ''}
             />
             <AssignSelect
               onChange={(e) => {
                 setNewWho(e.target.value);
               }}
-              defaultValue={edit ? edit.who : null}
+              defaultValue={edit ? edit.who : ''}
             >
               <option value="">담당자를 선택하세요</option>
               {whoKeyword &&
@@ -149,7 +149,7 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
         </AssignWrapper>
         <label htmlFor="content">내용</label>
         <ContentInput
-          defaultValue={edit ? edit.content : null}
+          defaultValue={edit ? edit.content : ''}
           name=""
           id="content"
           placeholder="내용을 입력하세요"
