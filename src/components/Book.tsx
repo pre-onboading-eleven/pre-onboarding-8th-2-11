@@ -1,7 +1,9 @@
 import Issue from './Issue';
 import styled from 'styled-components';
 
-const Book = ({ item }: any) => {
+import { IIssue } from '../pages/Main';
+
+const Book = ({ item }: IIssue) => {
   return (
     <div>
       {item ? (
