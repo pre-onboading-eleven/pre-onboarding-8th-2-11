@@ -72,7 +72,6 @@ const AddForm = ({ onSubmit, edit, setOpenModal }: IProps) => {
 
   useEffect(() => {
     if (edit) {
-      // console.log('edit:>> ', edit.status);
       setNewWho(edit.who);
       setNewStatus(edit.status);
     }

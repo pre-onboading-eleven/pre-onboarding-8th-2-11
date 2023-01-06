@@ -14,8 +14,6 @@ const Mark = ({ mark }: IProps) => {
     e: React.DragEventHandler<HTMLDivElement> | any
   ) => {
     e.target.className += ' border';
-    // let targetCardId = e.target.id;
-    // console.log('🚀 ~ file: Issue.tsx:20 ~ Mark ~ targetCardId', targetCardId);
     setTimeout(() => {
       setOnHold(true);
     }, 0);

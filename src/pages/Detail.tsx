@@ -40,7 +40,6 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
           X
         </CloseBtn>
       </ContainerHeader>
-      {/* <div>Mark detail page</div> */}
       {isEditing ? (
         <ContainerWrapper>
           <AddForm edit={mark} onSubmit={onSubmit} />

@@ -22,9 +22,6 @@ const AddIssueInput = ({ setOpenModal }: modalProps) => {
   };
 
   return (
-    // <div className="flex items-center justify-center">
-    //   <AddForm onSubmit={onSubmit} />
-    // </div>
     <ModalWrapper>
       <ContainerHeader>
         <CloseBtn
