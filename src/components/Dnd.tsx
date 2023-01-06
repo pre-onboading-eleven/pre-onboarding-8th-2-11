@@ -107,8 +107,10 @@ const Title = styled.div`
   height: 70px;
   font-size: 20px;
   font-weight: bold;
+  background-color: #003049;
+  color: white;
 
-  :nth-child(1) {
+  /* :nth-child(1) {
     background-color: #fdf0d5;
     color: black;
   }
@@ -119,7 +121,7 @@ const Title = styled.div`
   :nth-child(3) {
     background-color: #003049;
     color: white;
-  }
+  } */
 
   display: flex;
   justify-content: center;
