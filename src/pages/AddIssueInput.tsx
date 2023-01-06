@@ -10,8 +10,6 @@ interface modalProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const whoList = ['이호준', '이혜미', ' 김별이', '김만중', '이호열'];
-
 const AddIssueInput = ({ setOpenModal }: modalProps) => {
   const navigate = useNavigate();
 
@@ -22,9 +20,6 @@ const AddIssueInput = ({ setOpenModal }: modalProps) => {
   };
 
   return (
-    // <div className="flex items-center justify-center">
-    //   <AddForm onSubmit={onSubmit} />
-    // </div>
     <ModalWrapper>
       <ContainerHeader>
         <CloseBtn
@@ -71,7 +66,6 @@ const CloseBtn = styled.button`
   font-size: 20px;
   border-radius: 50%;
   border: none;
-  /* background-color: transparent; */
   cursor: pointer;
 `;
 

@@ -109,20 +109,6 @@ const Title = styled.div`
   font-weight: bold;
   background-color: #003049;
   color: white;
-
-  /* :nth-child(1) {
-    background-color: #fdf0d5;
-    color: black;
-  }
-  :nth-child(2) {
-    background-color: #c1121f;
-    color: white;
-  }
-  :nth-child(3) {
-    background-color: #003049;
-    color: white;
-  } */
-
   display: flex;
   justify-content: center;
   align-items: center;

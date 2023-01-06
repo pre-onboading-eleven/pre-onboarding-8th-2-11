@@ -33,8 +33,6 @@ const Home = () => {
     }, 500);
   }, []);
 
-  // console.log('main page', IssueData);
-
   return (
     <>
       {loading ? (

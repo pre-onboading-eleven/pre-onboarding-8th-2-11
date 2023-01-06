@@ -40,7 +40,6 @@ const Detail = ({ mark, setOpenModal }: PropsType) => {
           X
         </CloseBtn>
       </ContainerHeader>
-      {/* <div>Mark detail page</div> */}
       {isEditing ? (
         <ContainerWrapper>
           <AddForm edit={mark} onSubmit={onSubmit} />
@@ -123,7 +122,6 @@ const DetailWrapper = styled.div`
   margin-right: 20px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 `;
 
 const DetailHeader = styled.div``;
@@ -155,7 +153,7 @@ const SubmitBtn = styled.button`
   height: 50px;
   border-radius: 10px;
   border: none;
-  background-color: #44c975;
+  background-color: #003049;
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -167,7 +165,7 @@ const DeleteBtn = styled.button`
   height: 50px;
   border-radius: 10px;
   border: none;
-  background-color: #e66b6b;
+  background-color: #c1121f;
   color: white;
   font-size: 20px;
   font-weight: bold;
